@@ -292,13 +292,7 @@ def init_db_command():
         db.drop_all()
         db.create_all()
 
-        # Create default admin teacher
-        admin = Teacher(
-            username="admin",
-            password=hashlib.sha256("admin123".encode()).hexdigest()
-        )
-        db.session.add(admin)
-        db.session.commit()
+
 
     print("Initialized the database with default admin account.")
 
