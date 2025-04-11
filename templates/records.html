@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        h1 a {
+            font-size: 14px;
+            margin-left: 10px;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .filter-form {
+            background: #f1f3f5;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-form input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .filter-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filter-form a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: auto;
+            font-size: 14px;
+        }
+
+        .action-btns {
+            margin-bottom: 20px;
+        }
+
+        .export-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        thead {
+            background-color: #f0f0f0;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .filter-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            h1 {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Attendance Records
+            <span>
+                <a href="{{ url_for('teacher_dashboard') }}">Back to Dashboard</a>
+                <a href="{{ url_for('teacher_logout') }}" class="logout-btn">Logout</a>
+            </span>
+        </h1>
+
+        <div class="filter-form">
+            <form method="GET">
+                <input type="text" name="student_id" placeholder="Filter by ID" value="{{ filters.student_id }}">
+                <input type="text" name="student_name" placeholder="Filter by Name" value="{{ filters.student_name }}">
+                <input type="date" name="date" value="{{ filters.date }}">
+                <button type="submit">Apply Filters</button>
+                <a href="{{ url_for('view_records') }}">Clear Filters</a>
+            </form>
+        </div>
+
+        <div class="action-btns">
+            <a href="{{ url_for('export_records', student_id=filters.student_id, student_name=filters.student_name, date=filters.date) }}"
+               class="export-btn">
+               Export to Excel (with current filters)
+            </a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Student ID</th>
+                    <th>Date</th>
+                    <th>IP Address</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.student_name }}</td>
+                    <td>{{ record.student_id }}</td>
+                    <td>{{ record.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ record.ip_address }}</td>
+
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">No records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

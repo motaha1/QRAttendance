@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code - Attendance System</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .qr-modal {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        .qr-modal img {
+            max-width: 300px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            padding: 15px;
+            background: white;
+        }
+        .qr-modal h2 {
+            color: #4361ee;
+            margin-bottom: 10px;
+        }
+        .qr-modal p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            background: #4361ee;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .close-btn:hover {
+            background: #3a56d4;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-modal">
+        <h2>Attendance QR Code</h2>
+        <p>Scan this code to register attendance</p>
+        <img src="data:image/png;base64,{{ session.qr_code | b64encode }}" alt="QR Code">
+        <button onclick="window.close()" class="close-btn">Close Window</button>
+    </div>
+</body>
+</html>

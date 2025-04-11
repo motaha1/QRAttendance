@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success | Birzeit University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --birzeit-blue: #0038a8;
+            --birzeit-light: #f0f4ff;
+            --success: #4CAF50;
+            --success-light: #81c784;
+            --white: #ffffff;
+            --dark: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .success-card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            text-align: center;
+            padding: 40px;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .university-logo {
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: var(--success);
+            margin: 20px 0;
+            animation: bounce 1.5s infinite;
+        }
+
+        h1 {
+            color: var(--success);
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            color: var(--dark);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--success-light);
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .success-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%230038a8" opacity=".25"/></svg>');
+            background-size: cover;
+        }
+
+        .success-footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-card">
+        <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/1/16/Birzeit_University_logo.svg/1280px-Birzeit_University_logo.svg.png"
+             alt="Birzeit University Logo"
+             class="university-logo">
+
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h1>Attendance Recorded!</h1>
+        <p>Your attendance has been successfully registered in our system.</p>
+
+        <div class="success-footer">
+            <p>© 2025 Mohammad Taha</p>
+        </div>
+
+        <div class="success-wave"></div>
+
+        <!-- Confetti elements will be added by JavaScript -->
+        <div id="confetti-container"></div>
+    </div>
+
+    <script>
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#4CAF50', '#81c784', '#a5d6a7', '#66bb6a'];
+
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -10 + 'px';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+
+                // Random size
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+
+                // Random shape
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+
+                container.appendChild(confetti);
+
+                // Animate each confetti piece
+                animateConfetti(confetti);
+            }
+        }
+
+        function animateConfetti(confetti) {
+            const duration = Math.random() * 3 + 2;
+            const delay = Math.random() * 2;
+
+            confetti.style.animation = `fall ${duration}s linear ${delay}s forwards`;
+
+            // Create keyframes for the animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    0% {
+                        opacity: 1;
+                        transform: translateY(0) rotate(0deg);
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translateY(100vh) rotate(360deg);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Trigger confetti when page loads
+        window.onload = createConfetti;
+    </script>
+</body>
+</html>
